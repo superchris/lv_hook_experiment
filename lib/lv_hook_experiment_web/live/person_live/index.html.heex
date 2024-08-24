@@ -1,0 +1,44 @@
+<.header>
+  Listing People
+  <:actions>
+    <.link patch={~p"/people/new"}>
+      <.button>New Person</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="people"
+  rows={@people}
+  row_click={fn person -> JS.navigate(~p"/people/#{person}") end}
+>
+  <:col :let={person} label="Name"><%= person.name %></:col>
+  <:col :let={person} label="Birth date"><%= person.birth_date %></:col>
+  <:col :let={person} label="Happiness level"><%= person.happiness_level %></:col>
+  <:action :let={person}>
+    <div class="sr-only">
+      <.link navigate={~p"/people/#{person}"}>Show</.link>
+    </div>
+    <.link patch={~p"/people/#{person}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={person}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: person.id}) |> hide("##{person.id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<people-list url="ws://localhost:4000/live_state"></people-list>
+<.modal :if={@live_action in [:new, :edit]} id="person-modal" show on_cancel={JS.patch(~p"/people")}>
+  <.live_component
+    module={LvHookExperimentWeb.PersonLive.FormComponent}
+    id={@person.id || :new}
+    title={@page_title}
+    action={@live_action}
+    person={@person}
+    patch={~p"/people"}
+  />
+</.modal>
