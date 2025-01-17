@@ -31,6 +31,10 @@ export class TodoListElement extends LitElement {
   @liveStateConfig('url')
   url: string = "foo";
 
+  @property({attribute: 'socket-id'})
+  @liveStateConfig('params.socket_id')
+  socketId: string = "";
+  
   render() {
     return html`
       <div>

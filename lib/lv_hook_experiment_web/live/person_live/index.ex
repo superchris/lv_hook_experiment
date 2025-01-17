@@ -9,7 +9,7 @@ defmodule LvHookExperimentWeb.PersonLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(:people, People.list_people())}
+    {:ok, socket |> assign(:people, People.list_people()) |> assign(:socket_id, socket.id)}
   end
 
   @impl true

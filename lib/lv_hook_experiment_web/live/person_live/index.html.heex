@@ -31,7 +31,7 @@
   </:action>
 </.table>
 
-<people-list url="ws://localhost:4000/live_state"></people-list>
+<people-list url="ws://localhost:4000/live_state" socket-id={@socket_id}></people-list>
 <.modal :if={@live_action in [:new, :edit]} id="person-modal" show on_cancel={JS.patch(~p"/people")}>
   <.live_component
     module={LvHookExperimentWeb.PersonLive.FormComponent}
