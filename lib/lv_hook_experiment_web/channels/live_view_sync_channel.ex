@@ -1,4 +1,4 @@
-defmodule LvHookExperimentWeb.PeopleChannel do
+defmodule LvHookExperimentWeb.LiveViewSyncChannel do
   @moduledoc false
   alias Phoenix.PubSub
 
@@ -8,11 +8,6 @@ defmodule LvHookExperimentWeb.PeopleChannel do
   def init(_channel, %{"socket_id" => lv_socket_id}, socket) do
     PubSub.subscribe(LvHookExperiment.PubSub, "live_state:state:#{lv_socket_id}")
     {:ok, %{people: [], lv_socket_id: lv_socket_id}, socket |> assign(:lv_socket_id, lv_socket_id)}
-  end
-
-  @impl true
-  def handle_event("do_something", _payload, state) do
-    {:noreply, Map.put(state, :foo, "bar")}
   end
 
   @impl true

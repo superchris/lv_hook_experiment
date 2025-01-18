@@ -9,7 +9,7 @@ defmodule LvHookExperimentWeb.LiveStateSocket do
   ## Channels
 
   channel "todo:*", LvHookExperimentWeb.TodoChannel
-  channel "people:*", LvHookExperimentWeb.PeopleChannel
+  channel "people:*", LvHookExperimentWeb.LiveViewSyncChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
